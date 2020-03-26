@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Student</title>
+    <!-- NOTE Scripts marked with defer will load while the DOM is building (they are non blocking) but they will not execute until the DOM is ready; yet they will still execute before the DOMContentLoaded event  -->
+    <!-- you can change the version number of scripts below -->
+    <script defer src="/__/firebase/6.1.1/firebase-app.js"></script>
+    <!-- we don't need all of these sevices so let's not include all the scripts -->
+    <script defer src="/__/firebase/6.1.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/6.1.1/firebase-database.js"></script>
+    <!-- <script defer src="/__/firebase/6.1.1/firebase-messaging.js"></script> -->
+    <!-- <script defer src="/__/firebase/6.1.1/firebase-storage.js"></script> -->
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <link href="dashboard.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" id="CompanyName">Company name</a>
+            <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="javascript:signout()">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Main Menu</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="home.html">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="entries.html">
+                  <span data-feather="layers"></span>
+                  Entries <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Tools</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="entry.html">
+                  <span data-feather="plus-circle"></span>
+                  Add Entry <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="add.html">
+                  <span data-feather="users"></span>
+                  Add Student <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="delete.html">
+                  <span data-feather="delete"></span>
+                  Delete Student <span class="sr-only"></span>
+                </a>
+              </li>
+
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Saved reports</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="monthly.html">
+                  <span data-feather="file-text"></span>
+                  Monthly Reports
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="annual.html">
+                  <span data-feather="file-text"></span>
+                  Annual Reports
+                </a>
+              </li>
+            </ul>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Help</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="help.html">
+                  <span data-feather="help-circle"></span>
+                  FAQ
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://docs.google.com/document/d/1-5kgx-anS0D1Oo8vFHnRC9EYY3sAsoSVqI_dK9-VKpM/edit?usp=sharing">
+                  <span data-feather="file-text"></span>
+                  Documentation
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Add Student</h1>
+            <button class="btn btn-outline-primary" onclick="window.location.href='help.html'">
+            <span data-feather="help-circle"></span>
+            Help</button>
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="NameInput">Name</label>
+              <input type="text" class="form-control" id="NameInput" aria-describedby="nameHelp" placeholder="Enter Student Name">
+              <small id="nameHelp" class="form-text text-muted">Enter both the first name and last name</small>
+            </div>
+            <div class="form-group">
+              <label for="StudentIDInput">Student ID</label>
+              <input type="text" class="form-control" id="StudentIDInput" placeholder="Enter Student ID">
+            </div>
+            <div class="form-group">
+              <label for="GradeInput">Grade</label>
+              <input type="number" class="form-control" id="GradeInput" placeholder="Enter Student's Grade">
+            </div>
+            <div class="form-group">
+              <label for="HoursInput">Hours</label>
+              <input type="number" class="form-control" id="HoursInput" aria-describedby="hoursHelp" placeholder="Enter Hours">
+              <small id="hoursHelp" class="form-text text-muted">Default value is 0 hours</small>
+            </div>
+            <div class="form-group">
+              <label for="AwardsInput">Awards</label>
+              <input type="text" class="form-control" id="AwardsInput" aria-describedby="awardsHelp" placeholder="Enter Awards Earned">
+              <small id="awardsHelp" class="form-text text-muted">Separate each award with a comma</small>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="checkbox">
+              <label class="form-check-label" for="checkbox">All of the information entered is accurate.</label>
+            </div>
+            <br>
+            <button class="btn btn-primary" onclick="writeUserData()">Submit</button>
+          </form>
+
+    </main>
+
+
+    <script>
+      //by waiting for DOMContentLoaded we ensure that our deferred script from the <head> which loads the firebase sdk has already run
+      //see here for "defer": https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+      var provider;
+      var app;
+      var database;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // The Firebase SDK is already initialized and available here. The variable firebase is made available already from the deferred script in the head tag, presumably ...firebase-app.js or probably init.js
+        // Uncomment any lines below to use/respond to the corresponding service. So for example we will want to use use auth() right away
+
+        // firebase.auth().onAuthStateChanged(user => { });  //we can probably get authenticated without this line but nothing interesting will happen
+
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+
+        //This next block of code is not really needed. I just add an additional auth state change listener just because I wanted to verify that indeed the user is set to null when a signout happens
+        //see here: https://firebase.google.com/docs/auth/web/manage-users
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            console.log("This is a separate log from an additional auth state change listener. The user is: " + user + " And this user is known as: " + user.displayName)
+            document.getElementById('CompanyName').innerHTML = user.displayName
+          } else {
+            console.log("Again, another log from the auth state change listener. But now we have signed out so the user is: " + user)
+          }
+        });
+
+
+
+        try {
+          app = firebase.app(); //also decided to make this app veriable global to the script and just define/initialize it here
+          //cool trick to inform user of what features we've loaded. See javascripts Array filter() method. Note that features is ultimately an array that is made by filtering a larger array. The filter method takes a function as its argument and 'tests' each element in the larger, original array. Some condition specified in the test function is either true/false. This gets returned. When it's returned as true, the element 'makes it' into the output array.
+          datbase  = firebase.database()
+          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function'); //with use of arrow functions here: feature is an argument. The function body follows the fat arrow. The body looks at the typeof app[feature] which I presume will be returned as the string "undefined" if the feature is not loaded. "undefined" when stringly compared (operands are of same type and have same contents ie. ===) to "function" will return false
+           //join the contents of the filtered array and 'inject' them into the html using string interpolation
+
+          provider = new firebase.auth.GoogleAuthProvider();  //this variable declared earlier, globally in the script
+          provider.setCustomParameters({
+            prompt: 'select_account'
+          });
+          //OK the above custom parameter is key. It forces the signin pop to give the account popup each time so that we could reauthenticate with a different google account.
+          //Otherwise, after a single signin we will default to authenticating with the same Google account unless in another browser tab we visit gmail etc. and logout the google user Otherwise
+          //Basically, when we use firebase sign out we don't actually log the user out of their gmail. This can't be done with firebase
+          //But at least with the pop up we can switch their authentication select_account
+          //This post is a must read about this issue: https://groups.google.com/forum/#!topic/firebase-talk/wpntS7RLha8
+        } catch (e) {
+          console.error(e);
+          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+        }
+
+      });
+
+      //That's it! Firebase is loaded and we have a firebase app instance.
+      //To role the sign-in and authorization, here are some links. We are going to want to use Firebase authorization with Google as an identity provider
+      //https://firebase.google.com/docs/auth/web/start  Follow the link at the bottom for Google Sign-in since we don't wish to use uname ans password registration which is what this page is really about
+      //https://codelabs.developers.google.com/codelabs/firebase-web/#6 The old friendly chat code lab might help to
+      //https://firebase.google.com/docs/auth/web/google-signin  ***** I think this page explains it best
+      //https://stackoverflow.com/questions/46060459/how-to-embed-google-login-button-for-authentication-on-web-using-firebase
+      //https://developers.google.com/identity/sign-in/web/sign-in
+      //https://firebase.google.com/docs/auth
+      //The relationship between Google signin and Firebase auth SDK is confusing. One doesn't substtitute for the other. Firebase Auth can handle many authentication workflows such as uname and password registration. Signing in with Google or Facebook. Twitter etc. is just one way.
+      //This post may help, although a littel dated: https://stackoverflow.com/questions/25442786/what-is-the-difference-between-google-identity-toolkit-google-oaauth-firebase
+      //Keep in mind that signin in with Google is an oAuth2 workflow that can be implemented manually in many environments. Firebase auth SDK has a way of handling that workflow that is streamlined. It only works for web-based apps built on firebase. So if you were using Google Signin from Node, for example, you would have to role the workflow manually.
+      //Our options are many ie:
+      /*
+        1.  Use firebase auth sdk with username and email registration etc.            #Not bad but why bother when we have Google Signin
+        2.  Use firebase auth with Google Signin (Google authenticate your identity)   #Maybe easiest. But keep in mind that Maybe we still need to register users somehow in our Firebase DB althought there may be no reason to need to do that
+        2a. Same as above but also use FirebaseUI for drop-in UI                       #https://firebase.google.com/docs/auth/web/firebaseui
+        3.  use firebase auth SDK with some other id provider (Facebook etc.)          #Why bother?
+        4.  Use Google Signin (or Facebook etc.) and role out own oAuth2 workflow      #Might be interesting as a learning experince. But we have Firebase auth sdk
+        5.  Role our own registration and signin with uname and email                  #Ugh
+      */
+
+      //All of that being said, we might want to just check out this (relatively) new Google Identity Platform: https://cloud.google.com/identity-platform/docs/
+
+      function signin() {
+        console.log("foo");
+
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+          .then(function() {
+              // Existing and future Auth states are now persisted in the current
+              // session only. Closing the window would clear any existing state even
+              // if a user forgets to sign out.
+              // ...
+              // New sign-in will be persisted with session persistence.
+              return firebase.auth().signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                console.log(user);
+                console.log("********************")
+                document.location.href = 'google.com';
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                console.log(errorMessage);
+                // ...
+              });
+
+          })
+          .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+          });
+        // firebase.auth().signInWithPopup(provider).then(function(result) {
+        //   // This gives you a Google Access Token. You can use it to access the Google API.
+        //   var token = result.credential.accessToken;
+        //   // The signed-in user info.
+        //   var user = result.user;
+        //   console.log(user);
+        //   console.log("********************")
+        // }).catch(function(error) {
+        //   // Handle Errors here.
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        //   // The email of the user's account used.
+        //   var email = error.email;
+        //   // The firebase.auth.AuthCredential type that was used.
+        //   var credential = error.credential;
+        //   console.log(errorMessage);
+        //   // ...
+        // });
+
+
+
+      }
+
+      //Only signs out of our app. google user is still logged into Google in the browser
+      function signout() {
+        firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          //the user object is made null at this point.
+          console.log("You have been signed out.")
+          document.location.href = 'index.html';
+        }).catch(function(error) {
+          // An error happened.
+        });
+      }
+      function writeUserData() {
+        name = document.getElementById("NameInput").value
+        id = document.getElementById("StudentIDInput").value
+        grade = document.getElementById("GradeInput").value
+        hours = document.getElementById("HoursInput").value
+        awards = document.getElementById("AwardsInput").value
+        if(hours == ""){
+          hours = "0"
+        }
+        if(awards == ""){
+          awards = "None"
+        }
+        if(document.getElementById("checkbox").checked == true){
+          if(name != "" && id != "" && grade != ""){
+            firebase.database().ref(document.getElementById("CompanyName").innerHTML+'/Students/'+id).set({
+              aName: name,
+              bID: id,
+              cGrade : grade,
+              dHours: hours,
+              eAwards: awards
+
+            });
+          }
+          else{
+            alert("Please complete the form")
+          }
+
+        }
+        else{
+          alert("Please select the checkbox")
+        }
+
+      }
+
+
+      //This is the next step: https://firebase.google.com/docs/database/security/user-security
+      //we need to learn how to get the auth object (which has the uid) to interact with the language of the realtime database rules to allow access to particular data in the DB
+      //Keep in mind that saving user data to the realtime database to remember authorizations/permissions for different users is pointless because our code is all client side
+      //Thus anyone viewing the page could hack the js if we had logic to look in the db and check if the currently signed in user is someone in the db and then show that users info
+      //ie. I am signed in as uid1234 and client side code finds uid1234 in db and then delivers page and data for that user. But I hack browser's js to have it show data for uid4321 even though I am identified as uid1234
+      //This would not be the case if the db access security layer was protected by our own server. We could keep logic server side as with Firebase "admin" usage
+      //But in this case we are going to have to rely on the built in firebase db security "rules" which are themselves a kind of server-like layer that a client can't access
+      //Just remember that no security logic can be made client side
+      //https://firebase.google.com/docs/database/security/user-security
+      //https://firebase.google.com/docs/firestore/solutions/role-based-access
+      //https://stackoverflow.com/questions/19520615/how-do-i-implement-role-based-access-control-in-firebase
+      //https://stackoverflow.com/questions/19520615/how-do-i-implement-role-based-access-control-in-firebase
+    </script>
+    <!-- Icons -->
+   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+   <script>
+     feather.replace()
+   </script>
+  </body>
+</html>
